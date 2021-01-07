@@ -1,4 +1,4 @@
-# Remote Programming Server Configuration #
+# remote-stm32 Server Configuration #
 
 ## Prerequisites ##
 
@@ -15,7 +15,7 @@ To install:
 Also, it is recommended to use `sudo raspi-config` to change the username/password to something not default and to change the hostname to something relevant. 
 The hostname is what clients will use to connect to the server. 
 
-2. Clone this repo: `git clone THIS STUPID LINK` and install the dependencies: `sudo apt-get install at stlink`
+2. Clone this repo: `git clone https://github.com/eosti/remote-stm32.git` and install the dependencies: `sudo apt-get install at stlink`
 
 3. Run the install script with sudo: `sudo bash install.sh`
 **The STLink debugger should be unplugged for this step.**
@@ -23,7 +23,8 @@ This script will copy the necessary files into the correct locations and then re
 
 4. Test: Plug the STLink debugger into any USB port on the Pi. Run `ps aux | grep 'st-util' | grep -v grep` and verify that the `st-util` process exists.  
 
-At this point, the Pi now has a GDB server running on it. Make sure that other devices can connect to it by following the [client install guide](client.md)
+At this point, the Pi now has a GDB server running on it! 
+It may be useful to double check everything is working as planned by using the [client install guide](client.md) to test the debugging capabilities.
 
 ## How It Works ##
 
@@ -37,7 +38,7 @@ When an STLink debugger is plugged in or removed (identified by the vendor/devic
 
 ## Troubleshooting ##
 
-Something not right? Start by reading the device logs at LOCATION to see what happened. 
+Something not right? Start by reading the device logs at `/tmp/stutil.log` to see what happened. 
 
 **st-util doesn't start!**
 
@@ -47,7 +48,7 @@ First, verify that the device that you are plugging in is a genuine STLink devic
 When the STLink is plugged in, run `lsusb` and make note of the VendorID:DeviceID. 
 The Vendor ID should be 0483, and the Device ID should be one of the STLink devices listed [here](https://usb-ids.gowdy.us/read/UD/0483). 
 
-If it is not, change the `40-stlink.rules` to add an add and remove rule for your particular VendorID/DeviceID. 
+If it is not, change the `40-stlink.rules` to add a ruleset for your particular VendorID/DeviceID. 
 By default, udev looks for devices with Vendor ID 0483 (STMicroelectronics) with a Device ID corresponding to a STLink v1, v2/2.1, or a v3. 
 The server will only automatically start when the udev rules are activated. 
 
@@ -60,4 +61,4 @@ Try running `st-util` manually with increased verbosity to determine what is hap
 
 **[Insert complaint here]!**
 
-Submit an issue!
+Submit an [issue](https://github.com/eosti/remote-stm32/issues)!
