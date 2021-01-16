@@ -40,15 +40,15 @@ if [ ! \( -f $UDEV_RULE -a -f $SCRIPT \) ]; then
 fi
 
 # Copy files to the correct place
-printf "Copying $SCRIPT to $SCRIPT_LOCATION/$SCRIPT..."
-cp $SCRIPT $SCRIPT_LOCATION/$SCRIPT > /dev/null
+printf "Copying $SCRIPT to $SCRIPT_LOCATION/$SCRIPT...\n"
+\cp -f $SCRIPT $SCRIPT_LOCATION/$SCRIPT > /dev/null
 chmod +x $SCRIPT_LOCATION/$SCRIPT
 
-printf "Copying $UDEV_RULE to $UDEV_RULES_LOCATION/$UDEV_RULE..."
-cp $UDEV_RULE $UDEV_RULES_LOCATION/$UDEV_RULE > /dev/null
+printf "Copying $UDEV_RULE to $UDEV_RULES_LOCATION/$UDEV_RULE...\n"
+\cp -f $UDEV_RULE $UDEV_RULES_LOCATION/$UDEV_RULE > /dev/null
 
 # Finish up
-printf "Restarting udev\n"
+printf "Restarting udev...\n"
 udevadm control --reload-rules && udevadm trigger
 
 printf "All done!\n"
