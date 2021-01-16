@@ -11,19 +11,22 @@
 The installation steps are handily condensed into a bash install script for convenience. 
 To install:
 
-1. It is recommended to run an update: `sudo apt-get update && sudo apt-get update -y`
-Also, it is recommended to use `sudo raspi-config` to change the username/password to something not default and to change the hostname to something relevant. 
-The hostname is what clients will use to connect to the server. 
+1. Make sure everything is up to date: `sudo apt-get update && sudo apt-get upgrade -y`
+It is also recommended to run `sudo raspi-config` to set time zone localization, change the default login/password, and to set an appropriate hostname.
 
-2. Clone this repo: `git clone https://github.com/eosti/remote-stm32.git` and install the dependencies: `sudo apt-get install at stlink`
+2. Install the dependencies: `sudo apt-get install -y at git stlink-tools`. 
+Note: to debug STM32H7 devices, stlink => v1.6.2
 
-3. Run the install script with sudo: `sudo bash install.sh`
+3. Clone this repo: `git clone https://github.com/eosti/remote-stm32.git` 
+
+4. Enter the remote-stm32 directory and run the install script with sudo: `sudo bash install.sh`
 **The STLink debugger should be unplugged for this step.**
 This script will copy the necessary files into the correct locations and then restart udev.
 
 4. Test: Plug the STLink debugger into any USB port on the Pi. Run `ps aux | grep 'st-util' | grep -v grep` and verify that the `st-util` process exists.  
 
 At this point, the Pi now has a GDB server running on it! 
+The server will start any time a ST-Link device is plugged into it, and will automatically exit after the ST-Link device is removed.
 It may be useful to double check everything is working as planned by using the [client install guide](client.md) to test the debugging capabilities.
 
 ## How It Works ##
@@ -35,6 +38,8 @@ Ordinarily, this means that any time a device is connected or removed, someone w
 To keep the server as low-maintenance as possible, this process is automated using udev rules. 
 
 When an STLink debugger is plugged in or removed (identified by the vendor/device ID), udev will execute a script that will either start or stop the `st-util` server.
+
+The GDB server is then available in the local network for clients to connect to. 
 
 ## Troubleshooting ##
 
