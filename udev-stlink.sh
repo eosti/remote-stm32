@@ -4,7 +4,7 @@ export ST_LOG=/tmp/stutil.log
 
 printf "\n.\n" >> $ST_LOG
 date >> $ST_LOG
-logger -s "udev rule triggered for USB action: $1. \n" >> $ST_LOG
+logger -s "STLink udev rule triggered for USB action: $1." >> $ST_LOG
 
 sleep 1
 
@@ -19,16 +19,16 @@ fi
 
 if [ $1 == "remove" ]; then
     # Device removed, server killed, we're done here!
-	logger -s "Server killed, exiting." >> $ST_LOG
+	logger -s "STLink server killed, exiting." >> $ST_LOG
 
 elif [ $1 == "add" ]; then
 	# Start STLink GDB Server without this script as its parent
-	logger -s "Starting st-util server. \n" >> $ST_LOG
+	logger -s "Starting st-util server." >> $ST_LOG
 	echo "st-util -m >> $ST_LOG 2>&1" | at now
 	sleep 1
 else
 	# Something very bad happened to get here
-	logger -s "Invalid or no input, exiting." >> $ST_LOG
+	logger -s "Invalid or no input to STLink, exiting." >> $ST_LOG
 	exit 1
 fi
 
