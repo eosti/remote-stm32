@@ -12,12 +12,12 @@ if [ "$EUID" -ne 0 ]
 fi
 
 # Make sure prerequisites are installed, if not, install them
-if [ ! command -v st-util &> /dev/null ]; then
+if [ ! $(command -v st-util &> /dev/null) ]; then
     printf "Package stlink-tools does not exist, please install to continue!\n"
     exit 1;
 fi
 
-if [ ! command -v at &> /dev/null ]; then
+if [ ! $(command -v at &> /dev/null) ]; then
     printf "Package at does not exist, please install to continue!\n"
     exit 1;
 fi
