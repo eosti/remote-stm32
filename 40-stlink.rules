@@ -1,11 +1,11 @@
 # STLINK v1
-ACTION=="add", AENV{DEVTYPE}=="usb_device", ATTRS{idProduct}=="3744", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/stlink-server.sh add"
-ACTION=="remove", SUBSYSTEM=="usb", ATTRS{idProduct}=="3744", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/stlink-server.sh remove"
+ACTION=="add", AENV{DEVTYPE}=="usb_device", ATTRS{idProduct}=="3744", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/udev-stlink.sh add"
+ACTION=="remove", SUBSYSTEM=="usb", ATTRS{idProduct}=="3744", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/udev-stlink.sh remove"
 
 # STLINK v2/v2.1
-ACTION=="add", ENV{DEVTYPE}=="usb_device", ATTRS{idProduct}=="3748|374b|3752", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/stlink-server.sh add"
-ACTION=="remove", SUBSYSTEM=="usb", ATTRS{idProduct}=="3748|374b|3752", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/stlink-server.sh remove"
+ACTION=="add", ENV{DEVTYPE}=="usb_device", ATTRS{idProduct}=="3748|374b|3752", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/udev-stlink.sh add"
+ACTION=="remove", SUBSYSTEM=="usb", ATTRS{idProduct}=="3748|374b|3752", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/udev-stlink.sh remove"
 
 # STLINK v3
-ACTION=="add", AENV{DEVTYPE}=="usb_device", ATTRS{idProduct}=="374e|374f|3753", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/stlink-server.sh add"
-ACTION=="remove", SUBSYSTEM=="usb", ATTRS{idProduct}=="374e|374f|3753", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/stlink-server.sh remove"
+ACTION=="add", AENV{DEVTYPE}=="usb_device", ATTRS{idProduct}=="374e|374f|3753", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/udev-stlink.sh add"
+ACTION=="remove", SUBSYSTEM=="usb", ATTRS{idProduct}=="374e|374f|3753", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/udev-stlink.sh remove"
