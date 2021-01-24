@@ -6,8 +6,7 @@ This consists of two parts: a Raspberry Pi running a GDB server that is physical
 
 ![Block diagram](./block-diagram.png)
 
-**NOTE: This is super untested!** 
-I'm working on it, but for now nothing is guaranteed to work.
+Tested and working on MacOS and Windows 10 clients, with STM32H7 and STM32F3 targets. All boards that are supported by [stlink-tools](https://github.com/stlink-org/stlink/blob/develop/doc/devices_boards.md) should be supported here as well.
 
 ## Installation ##
 
