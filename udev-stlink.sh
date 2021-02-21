@@ -29,7 +29,7 @@ elif [ $1 == "add" ]; then
 	echo "st-util -m >> $ST_LOG 2>&1" | at now
     
     # Check for existance of the STLink UART device
-    if [ -f "/dev/ttySTLink" ]; then
+    if [ -e "/dev/ttySTLink" ]; then
         # Start ser2net server without this script as its parent
         logger -s "Starting ser2net server" >> $ST_LOG
         echo "ser2net -c $SER2NET_CONFIG >> $ST_LOG 2>&1" | at now
