@@ -25,11 +25,15 @@ if [ $1 == "remove" ]; then
 
 elif [ $1 == "add" ]; then
 	# Start STLink GDB Server without this script as its parent
-	logger -s "Starting st-util server and ser2net server." >> $ST_LOG
+	logger -s "Starting st-util server" >> $ST_LOG
 	echo "st-util -m >> $ST_LOG 2>&1" | at now
-
-    # Start ser2net server without this script as its parent
-    echo "ser2net -c $SER2NET_CONFIG >> $ST_LOG 2>&1" | at now
+    
+    # Check for existance of the STLink UART device
+    if [ -f "/dev/ttySTLink" ]; then
+        # Start ser2net server without this script as its parent
+        logger -s "Starting ser2net server" >> $ST_LOG
+        echo "ser2net -c $SER2NET_CONFIG >> $ST_LOG 2>&1" | at now
+    fi
 
 	sleep 1
 else
