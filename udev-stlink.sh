@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export ST_LOG=/tmp/stutil.log
+export SER2NET_CONFIG=/etc/stlink_ser2net.conf
 
 printf "\n.\n" >> $ST_LOG
 date >> $ST_LOG
