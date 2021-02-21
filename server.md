@@ -14,7 +14,7 @@ To install:
 1. Make sure everything is up to date: `sudo apt-get update && sudo apt-get upgrade -y`
 It is also recommended to run `sudo raspi-config` to set time zone localization, change the default login/password, and to set an appropriate hostname.
 
-2. Install the dependencies: `sudo apt-get install -y at git stlink-tools`. 
+2. Install the dependencies: `sudo apt-get install -y at git ser2net stlink-tools`. 
 Note: to debug STM32H7 devices, stlink => v1.6.2
 This is currently still in development; install the nightly version with the guide [here](https://github.com/stlink-org/stlink/blob/develop/doc/compiling.md#linux).
 If you go this route, **do not** install stlink-tools from apt-get. 
@@ -31,6 +31,10 @@ At this point, the Pi now has a GDB server running on it!
 The server will start any time a ST-Link device is plugged into it, and will automatically exit after the ST-Link device is removed.
 It may be useful to double check everything is working as planned by using the [client install guide](client.md) to test the debugging capabilities.
 
+This installation also includes a UART forwarder. 
+On ST-Link devices that support UART passthough, that serial device is exposed to the network.
+By default, the program expects the UART at 115200 baud -- if this is not what you want, change the appropriate variable in `install.sh`.
+
 ## How It Works ##
 
 This is based on [stlink](https://github.com/stlink-org/stlink), an open source version of the ST debugging tools. 
@@ -41,7 +45,11 @@ To keep the server as low-maintenance as possible, this process is automated usi
 
 When an STLink debugger is plugged in or removed (identified by the vendor/device ID), udev will execute a script that will either start or stop the `st-util` server.
 
-The GDB server is then available in the local network for clients to connect to. 
+If the device also includes a serial modem, it will be symlinked to `/dev/ttySTLink` and `ser2net` will attach to it.
+[ser2net](https://github.com/cminyard/ser2net) will expose that serial modem to port 8686, which can be accessed through `telnet`.
+
+The GDB server is then available in the local network for clients to connect to on port 4242.
+If there is a serial modem detected, it will be made available for `telnet` connections on port 8686.
 
 ## Troubleshooting ##
 
@@ -65,6 +73,20 @@ Additionally, check that the script to start the server is working properly: `su
 
 For some reason, st-util cannot attach to the STLink. 
 Try running `st-util` manually with increased verbosity to determine what is happening. 
+
+**ser2net never starts!**
+
+If st-util is working fine, then this is likely due to the absence of an appropriate serial device to connect to.
+Ensure that the STLink that you have has a serial modem, and that it is accessible via USB.
+When plugged into the RPi, it should also be mapped to `/dev/ttyACMx`, so check that using `screen` or your serial program of choice.
+
+**I can connect to ser2net, but it's all gibberish!**
+
+Ensure that your head did not come into contact with the keyboard during the typing of any UART debugging messages.
+After all, garbage in, garbage out. 
+
+The issue is likely a mis-matched baud rate: ser2net defaults to 115200 baud.
+If you deem this baud rate unworthy for your device, change the `SER2NET_BAUD` variable in `install.sh` and reinstall. 
 
 **[Insert complaint here]!**
 
