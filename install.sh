@@ -62,7 +62,7 @@ echo "BANNER:banner:\r\nConnected to $(hostname) on port \p, device \d [\s]\r\n\
 echo "8686:telnet:600:/dev/ttySTLink:$SER2NET_BAUD 8DATABITS NONE 1STOPBIT banner" >> $SER2NET_LOCATION
 
 # Disable ser2net starting on boot
-systemctl disable ser2net > /dev/null
+systemctl disable ser2net > /dev/null 2>&1
 
 # Finish up
 printf "Restarting udev...\n"
