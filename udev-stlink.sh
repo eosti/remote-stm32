@@ -4,7 +4,7 @@ export ST_LOG=/tmp/stutil.log
 
 printf "\n.\n" >> $ST_LOG
 date >> $ST_LOG
-logger -s "STLink udev rule triggered for USB action: $1." >> $ST_LOG
+logger -s "remote-stm32 udev rule triggered for USB action: $1." >> $ST_LOG
 
 sleep 1
 
@@ -15,6 +15,7 @@ ps auxw | grep st-util | grep -v grep > /dev/null
 if [ $? == 0 ]; then	
 	printf "Current st-util instance detected, killing it. \n" >> $ST_LOG
 	killall st-util
+    killall ser2net
 fi
 
 if [ $1 == "remove" ]; then
@@ -23,12 +24,16 @@ if [ $1 == "remove" ]; then
 
 elif [ $1 == "add" ]; then
 	# Start STLink GDB Server without this script as its parent
-	logger -s "Starting st-util server." >> $ST_LOG
+	logger -s "Starting st-util server and ser2net server." >> $ST_LOG
 	echo "st-util -m >> $ST_LOG 2>&1" | at now
+
+    # Start ser2net server without this script as its parent
+    echo "ser2net -c $SER2NET_CONFIG >> $ST_LOG 2>&1" | at now
+
 	sleep 1
 else
 	# Something very bad happened to get here
-	logger -s "Invalid or no input to STLink, exiting." >> $ST_LOG
+	logger -s "Invalid or no input to remote-stm32, exiting." >> $ST_LOG
 	exit 1
 fi
 
