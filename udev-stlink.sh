@@ -28,14 +28,11 @@ elif [ $1 == "add" ]; then
     logger -s "Starting st-util server" >> $ST_LOG 2>&1
     echo "st-util -m >> $ST_LOG 2>&1" | at now
 
-    # Check for existance of the STLink UART device
-    if [ -e "/dev/ttySTLink" ]; then
-        # Start ser2net server without this script as its parent
-        logger -s "Starting ser2net server" >> $ST_LOG 2>&1
-        echo "ser2net -c $SER2NET_CONFIG >> $ST_LOG 2>&1" | at now
-    fi
+elif [ $1 == "uart" ]; then
+    # STLink UART device created, so begin ser2net
+    logger -s "Starting ser2net server" >> $ST_LOG 2>&1
+    echo "ser2net -c $SER2NET_CONFIG >> $ST_LOG 2>&1" | at now
 
-    sleep 1
 else
     # Something very bad happened to get here
     logger -s "Invalid or no input to remote-stm32, exiting." >> $ST_LOG 2>&1
