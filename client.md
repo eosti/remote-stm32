@@ -6,8 +6,11 @@
 * [arm-none-eabi-gdb](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) 
 *Note that the version in package managers is quite outdated because [they stopped updating it](https://launchpad.net/gcc-arm-embedded). You should instead use the version hosted on their website.* 
 * Network access to the GDB server
+* `telnet` for UART access
 
 ## Configuration ##
+
+### Debugging ###
 
 1. Open STM32CubeIDE and go to Run > Debug Configurations
 2. Create a new GDB Hardware Debugging configuration by right-clicking the entry "GDB Hardware Debugging" and selecting "New Configuration"
@@ -18,6 +21,12 @@
     * Fill in the Host Name or IP Address and Port fields -- the default port is 4242, consult the server host to determine the IP address
 4. Save this configuration
 5. To debug, click the down-arrow to the right of the debug button and select the new debug configuration
+
+### UART/Serial ###
+1. Connect to the Raspberry Pi on port 8686 via `telnet`: `telnet myraspberrypi.local 8686`
+2. You should see a banner identifying the Raspberry Pi, the serial device, and serial connection details. 
+You are now connected to the UART interface that is connected to the STLink. 
+This interface varies by device -- check the datasheet to see which UART you should send debugging data to. 
 
 ## Troubleshooting ##
 
@@ -40,7 +49,13 @@ Make sure that the server details are entered correctly, if this is the first ti
 
 Make sure that you are the only one attempting to debug: only one connection to the GDB server can be active at a time!
 
-Finally, try bugging the person hosting the server to check if it's actually up. 
+Finally, try bugging the person hosting the server to check if it's actually up.
+
+**I just get gibberish while using telnet!**
+
+This is likely caused by a baud mismatch. 
+By default, the server listens at 115200 baud. 
+If you can't or won't use this baud rate, the server host will need to reconfigure it to listen to your new and improved baud rate.  
 
 **[Insert complaint here]!**
 

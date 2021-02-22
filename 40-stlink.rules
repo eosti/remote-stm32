@@ -9,3 +9,6 @@ ACTION=="remove", SUBSYSTEM=="usb", ATTRS{idProduct}=="3748|374b|3752", ATTRS{id
 # STLINK v3
 ACTION=="add", ENV{DEVTYPE}=="usb_device", ATTRS{idProduct}=="374e|374f|3753", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/udev-stlink.sh add"
 ACTION=="remove", SUBSYSTEM=="usb", ATTRS{idProduct}=="374e|374f|3753", ATTRS{idVendor}=="0483", RUN+="/usr/local/bin/udev-stlink.sh remove"
+
+# Remap serial interface to ttySTLink
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", KERNEL=="ttyACM*", SYMLINK+="ttySTLink", RUN+="/usr/local/bin/udev-stlink.sh uart"
