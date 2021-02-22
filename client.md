@@ -22,11 +22,11 @@
 4. Save this configuration
 5. To debug, click the down-arrow to the right of the debug button and select the new debug configuration
 
-### UART/Serial###
+### UART/Serial ###
 1. Connect to the Raspberry Pi on port 8686 via `telnet`: `telnet myraspberrypi.local 8686`
 2. You should see a banner identifying the Raspberry Pi, the serial device, and serial connection details. 
 You are now connected to the UART interface that is connected to the STLink. 
-This interface varies by device -- check the datasheet to see which UART you should send debugging to. 
+This interface varies by device -- check the datasheet to see which UART you should send debugging data to. 
 
 ## Troubleshooting ##
 

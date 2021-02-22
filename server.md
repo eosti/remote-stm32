@@ -16,10 +16,10 @@ It is also recommended to run `sudo raspi-config` to set time zone localization,
 
 2. Install the dependencies: `sudo apt-get install -y at git ser2net stlink-tools`. 
 
-Note: to debug STM32H7 devices, stlink => v1.6.2.
+Note: to debug STM32H7 devices, `stlink => v1.6.2`.
 This is currently still in development; install the nightly version with the guide [here](https://github.com/stlink-org/stlink/blob/develop/doc/compiling.md#linux).
 If you go this route, **do not** install stlink-tools from apt-get. 
-If you do, the best way to reset is to restart with a fresh copy of Raspberry Pi OS, unfortunately.
+If you accidentally install stlink-tools from apt-get, the best way to reset is to start with a fresh version of Raspberry Pi OS, unfortunately. 
 
 3. Clone this repo: `git clone https://github.com/eosti/remote-stm32.git` 
 
@@ -47,8 +47,8 @@ To keep the server as low-maintenance as possible, this process is automated usi
 
 When an STLink debugger is plugged in or removed (identified by the vendor/device ID), udev will execute a script that will either start or stop the `st-util` server.
 
-If the device also includes a serial modem, it will be symlinked to `/dev/ttySTLink` and `ser2net` will attach to it.
-[ser2net](https://github.com/cminyard/ser2net) will expose that serial modem to port 8686, which can be accessed through `telnet`.
+If the device also includes a serial modem, it will be symlinked to `/dev/ttySTLink` and [ser2net](https://github.com/cminyard/ser2net) will attach to it.
+ser2net will expose that serial modem to port 8686, which can be accessed through `telnet`.
 
 The GDB server is then available in the local network for clients to connect to on port 4242.
 If there is a serial modem detected, it will be made available for `telnet` connections on port 8686.

@@ -3,7 +3,7 @@
 export ST_LOG=/tmp/stutil.log
 export SER2NET_CONFIG=/etc/stlink_ser2net.conf
 
-printf "\n.\n" >> $ST_LOG
+printf "\n" >> $ST_LOG
 date >> $ST_LOG
 logger -s "remote-stm32 udev rule triggered for USB action: $1." >> $ST_LOG 2>&1
 
@@ -32,8 +32,8 @@ fi
 # We now restart the appropriate services, if requested
 
 if [ $1 == "remove" ]; then
-    # Device removed, server killed, we're done here!
-    logger -s "STLink server killed, exiting." >> $ST_LOG 2>&1
+    # Device removed, services killed, we're done here!
+    logger -s "All remote-stm32 services killed, exiting." >> $ST_LOG 2>&1
 
 elif [ $1 == "add" ]; then
     # Start STLink GDB Server without this script as its parent
