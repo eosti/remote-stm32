@@ -9,15 +9,27 @@ logger -s "remote-stm32 udev rule triggered for USB action: $1." >> $ST_LOG 2>&1
 
 sleep 1
 
+# We start by ensuring that only one instance of both ser2net and stlink exist at a time
+
 # Is there currently an instance of st-util?
 ps auxw | grep st-util | grep -v grep > /dev/null
 
-# If there is, kill it!
-if [ $? == 0 ]; then	
+# If there is, kill it (unless we're starting the ser2net instance)!
+if [ $? == 0 ] && [ $1 != "uart" ]; then
     printf "Current st-util instance detected, killing it. \n" >> $ST_LOG
     killall st-util > /dev/null
-    killall ser2net > /dev/null
 fi
+
+# Is there currently an instance of ser2net?
+ps auxw | grep ser2net | grep -v grep > /dev/null
+
+# If there is, kill it (unless we're starting stlink)!
+if [ $? == 0 ] && [ $1 != "add" ]; then
+    printf "Current ser2net instance detected, killing it. \n" >> $ST_LOG
+    killall ser2net > /dev/null 
+fi
+
+# We now restart the appropriate services, if requested
 
 if [ $1 == "remove" ]; then
     # Device removed, server killed, we're done here!
