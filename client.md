@@ -6,7 +6,6 @@
 * [arm-none-eabi-gdb](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) 
 *Note that the version in package managers is quite outdated because [they stopped updating it](https://launchpad.net/gcc-arm-embedded). You should instead use the version hosted on their website.* 
 * Network access to the GDB server
-* `telnet` for UART access
 
 ## Configuration ##
 
@@ -35,9 +34,34 @@
 ![Debug as](./images/debug-as.png)
 
 ### UART/Serial ###
-1. Connect to the Raspberry Pi on port 8686 via `telnet`: `telnet myraspberrypi.local 8686`
+
+To connect to the UART interface through STM32CubeIDE:
+
+1. While in the debug perspective, open a console tab. Select Open Console > Command Shell Console
+
+![New console](./images/new-console.png)
+
+2. In the Select Remote Configuration window, choose a connection type of Telnet, and an encoding of UTF-8. 
+We'll get the actual connection details in the next step.
+
+![Remote configuration](./images/remote-configuration.png)
+
+3. In that same window, create a new connection, with the host being the IP of the Raspberry Pi, and port 8686. 
+
+![Telnet connection](./images/telnet-configuration.png)
+
+4. Finish the new connection and press OK on the original pop-up. 
+You should now see a connection message in the console window to the effect of "Connected to myraspberrypi on port 8686 [...]".
+
+5. To disconnect, press the red N-looking button in the console window. 
+
+Alternatively, you can use your terminal program of choice and `telnet` directly:
+
+1. Connect to the Raspberry Pi on port 8686: `telnet myraspberrypi.local 8686`
+
 2. You should see a banner identifying the Raspberry Pi, the serial device, and serial connection details. 
-You are now connected to the UART interface that is connected to the STLink. 
+
+Either way you choose, you are now connected to the UART interface that is connected to the STLink. 
 This interface varies by device -- check the datasheet to see which UART you should send debugging data to. 
 
 ## Troubleshooting ##
