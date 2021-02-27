@@ -13,14 +13,26 @@
 ### Debugging ###
 
 1. Open STM32CubeIDE and go to Run > Debug Configurations
+
+![Debug configurations](./images/debug-configuration.png)
+
 2. Create a new GDB Hardware Debugging configuration by right-clicking the entry "GDB Hardware Debugging" and selecting "New Configuration"
+
+![New configuration](./images/new-configuration.png)
+
 3. Under the Debugger tab, change the following fields:
     * GDB Command should be `arm-none-eabi-gdb`
     * Check the Remote Target box
     * Change the JTAG Device to ST-LINK (ST-LINK GDB Server)
     * Fill in the Host Name or IP Address and Port fields -- the default port is 4242, consult the server host to determine the IP address
-4. Save this configuration
+
+![Debugger settings](./images/debugger-settings.png)
+
+4. Apply this configuration by pressing the 'Apply' button, and then press the 'debug' button (even if you don't actually want to debug). Exit out of the debugging session.
+
 5. To debug, click the down-arrow to the right of the debug button and select the new debug configuration
+
+![Debug as](./images/debug-as.png)
 
 ### UART/Serial ###
 1. Connect to the Raspberry Pi on port 8686 via `telnet`: `telnet myraspberrypi.local 8686`
