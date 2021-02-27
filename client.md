@@ -87,6 +87,10 @@ Make sure that you are the only one attempting to debug: only one connection to 
 
 Finally, try bugging the person hosting the server to check if it's actually up.
 
+**I get the error 'Port already in use'!**
+
+Someone else is currently accessing the serial port -- like the GDB server, only one connection can be active at a time.
+
 **I just get gibberish while using telnet!**
 
 This is likely caused by a baud mismatch. 
