@@ -22,7 +22,7 @@
 3. Under the Debugger tab, change the following fields:
     * GDB Command should be `arm-none-eabi-gdb`
     * Check the Remote Target box
-    * Change the JTAG Device to ST-LINK (ST-LINK GDB Server)
+    * Change the JTAG Device to `ST-LINK (ST-LINK GDB Server)`
     * Fill in the Host Name or IP Address and Port fields -- the default port is 4242, consult the server host to determine the IP address
 
 ![Debugger settings](./images/debugger-settings.png)
@@ -61,7 +61,7 @@ Alternatively, you can use your terminal program of choice and `telnet` directly
 
 2. You should see a banner identifying the Raspberry Pi, the serial device, and serial connection details. 
 
-Either way you choose, you are now connected to the UART interface that is connected to the STLink. 
+Either way you choose, you are now connected to the UART interface that is connected to the ST-LINK. 
 This interface varies by device -- check the datasheet to see which UART you should send debugging data to. 
 
 ## Troubleshooting ##

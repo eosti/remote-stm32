@@ -36,7 +36,7 @@ if [ $1 == "remove" ]; then
     logger -s "All remote-stm32 services killed, exiting." >> $ST_LOG 2>&1
 
 elif [ $1 == "add" ]; then
-    # Start STLink GDB Server without this script as its parent
+    # Start stlink GDB Server without this script as its parent
     logger -s "Starting st-util server" >> $ST_LOG 2>&1
     echo "st-util -m >> $ST_LOG 2>&1" | at now
 
