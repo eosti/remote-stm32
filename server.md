@@ -16,11 +16,6 @@ It is also recommended to run `sudo raspi-config` to set time zone localization,
 
 2. Install the dependencies: `sudo apt-get install -y at git ser2net stlink-tools`. 
 
-Note: to debug STM32H7 devices, `stlink => v1.6.2`.
-This is currently still in development; install the nightly version with the guide [here](https://github.com/stlink-org/stlink/blob/develop/doc/compiling.md#linux).
-If you go this route, **do not** install stlink-tools from apt-get. 
-If you accidentally install stlink-tools from apt-get, the best way to reset is to start with a fresh version of Raspberry Pi OS, unfortunately. 
-
 3. Clone this repo: `git clone https://github.com/eosti/remote-stm32.git` 
 
 4. Enter the remote-stm32 directory with `cd remote-stm32` and run the install script with sudo: `sudo bash install.sh`
