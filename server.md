@@ -15,6 +15,7 @@ To install:
 It is also recommended to run `sudo raspi-config` to set time zone localization, change the default login/password, and to set an appropriate hostname.
 
 2. Install the dependencies: `sudo apt-get install -y at git ser2net stlink-tools`. 
+Note: stlink-tools MUST >= v1.7.0 for H7-series MCUs. Some package managers still don't have this updated version, so you may need to install [from source](https://github.com/stlink-org/stlink/blob/develop/doc/compiling.md#Linux)
 
 3. Clone this repo: `git clone https://github.com/eosti/remote-stm32.git` 
 
